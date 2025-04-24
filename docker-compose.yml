@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # Serviço para o MongoDB
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  # Serviço para o MySQL
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meu_banco_mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  # Serviço para a API MongoDB
+  api-mongodb:
+    build:
+      context: ./api-mongodb  # Caminho do diretório da API MongoDB
+      dockerfile: Dockerfile  # Dockerfile da API MongoDB
+    container_name: api-mongodb
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/meu_banco_mongo
+    networks:
+      - app-network
+
+  # Serviço para a API MySQL
+  api-mysql:
+    build:
+      context: ./api-mysql  # Caminho do diretório da API MySQL
+      dockerfile: Dockerfile  # Dockerfile da API MySQL
+    container_name: api-mysql
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/meu_banco_mysql?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - app-network
+
+# Volumes para persistência de dados
+volumes:
+  mongodb_data:
+  mysql_data:
+
+# Definindo a rede
+networks:
+  app-network:
+    driver: bridge
