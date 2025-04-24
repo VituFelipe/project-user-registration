@@ -1,0 +1,46 @@
+# ===== FRONTEND (React) =====
+frontend-api-user/node_modules/
+frontend-api-user/.pnp/
+frontend-api-user/.pnp.js
+frontend-api-user/build/
+frontend-api-user/.env.local
+frontend-api-user/.env.development.local
+frontend-api-user/.env.test.local
+frontend-api-user/.env.production.local
+
+# ===== BACKEND (Spring Boot - Maven) =====
+**/target/
+**/.mvn/
+**/logs/
+**/*.log
+**/hs_err_pid*.log
+
+# ===== IDEs =====
+# IntelliJ
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Eclipse
+*.classpath
+*.project
+*.settings/
+
+# ===== System Files =====
+.DS_Store
+Thumbs.db
+
+# ===== Docker =====
+*.pid
+.env
+
+# ===== OS Specific =====
+# macOS
+._*
+
+# Windows
+ehthumbs.db
+Icon?
+desktop.ini
