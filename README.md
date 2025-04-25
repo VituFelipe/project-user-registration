@@ -64,7 +64,7 @@ git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
 ```
 
-2. Directory Structure
+### 2. Directory Structure
 
 Ensure the following directories exist:
 
@@ -78,7 +78,7 @@ Ensure the following directories exist:
 
 ./api-mysql: Contains the MySQL API source code and Dockerfile.
 
-3. Configure Environment
+### 3. Configure Environment
 
 The docker-compose.yml defines environment variables for both APIs:
 
@@ -94,7 +94,7 @@ MySQL API: Connects to mysql:3306/meu_banco_mysql with credentials root/root.
 
 The application.properties for the MySQL API is overridden by environment variables in docker-compose.yml to ensure correct configuration.
 
-4. Build and Run with Docker Compose
+### 4. Build and Run with Docker Compose
 
 Run the following command to build and start all services:
 
@@ -116,19 +116,19 @@ Build the api-mongodb and api-mysql images using their respective Dockerfiles.
 
 Start the services with persistent volumes and a shared network.
 
-5. Access the APIs
+### 5. Access the APIs
 
 
 
 
 
-MongoDB API: Available at http://localhost:8080
+- `MongoDB API`: Available at http://localhost:8080
 
 
 
-MySQL API: Available at http://localhost:8081
+- `MySQL API`: Available at http://localhost:8081
 
-6. Verify Database Connections
+### 6. Verify Database Connections
 
 
 
@@ -136,23 +136,30 @@ MySQL API: Available at http://localhost:8081
 
 MongoDB:
 
+```bash
 docker exec -it mongodb mongosh meu_banco_mongo
-
+```
 
 
 MySQL:
 
+```bash
 docker exec -it mysql mysql -uroot -proot -e "SHOW DATABASES;"
+```
 
-7. Stop the Services
+### 7. Stop the Services
 
 To stop and remove the containers:
 
+```bash
 docker-compose down
+```
 
 To also remove volumes (data will be lost):
 
+```
 docker-compose down -v
+```
 
 Services Overview
 
