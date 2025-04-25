@@ -161,243 +161,97 @@ To also remove volumes (data will be lost):
 docker-compose down -v
 ```
 
-Services Overview
+## Services Overview
 
+| Service       | Description                 | Port (Host) | Port (Container) | Database           |
+|---------------|-----------------------------|-------------|------------------|--------------------|
+| `mongodb`     | MongoDB database            | 27017       | 27017            | `meu_banco_mongo`  |
+| `mysql`       | MySQL database              | 3306        | 3306             | `meu_banco_mysql`  |
+| `api-mongodb` | Spring Boot API for MongoDB | 8080        | 8080             | Connects to MongoDB|
+| `api-mysql`   | Spring Boot API for MySQL   | 8081        | 8081             | Connects to MySQL  |
 
+## Configuration Details
 
+### MongoDB API:
 
+- Configured via `SPRING_DATA_MONGODB_URI` in `docker-compose.yml`.
+- Connects to `mongodb:27017/meu_banco_mongo`.
 
+### MySQL API:
 
+- Configured via environment variables in `docker-compose.yml` (overrides `application.properties`).
+- Connects to `mysql:3306/meu_banco_mysql` with credentials `root/root`.
+- Hibernate DDL is set to `update` for automatic schema updates.
 
-Service
+### Docker Compose:
 
+- Uses version `3.8`.
+- Defines a bridge network (`app-network`) for service communication.
+- Persists data using volumes: `mongodb_data`, `mysql_data`.
 
 
-Description
+## Troubleshooting
 
+### API fails to connect to database:
 
 
-Port (Host)
+- Ensure the `mongodb` and `mysql` services are running before the APIs start. The `depends_on` directive helps, but you may add health checks for robustness:
 
-
-
-Port (Container)
-
-
-
-Database
-
-
-
-
-
-mongodb
-
-
-
-MongoDB database
-
-
-
-27017
-
-
-
-27017
-
-
-
-meu_banco_mongo
-
-
-
-
-
-mysql
-
-
-
-MySQL database
-
-
-
-3306
-
-
-
-3306
-
-
-
-meu_banco_mysql
-
-
-
-
-
-api-mongodb
-
-
-
-Spring Boot API for MongoDB
-
-
-
-8080
-
-
-
-8080
-
-
-
-Connects to MongoDB
-
-
-
-
-
-api-mysql
-
-
-
-Spring Boot API for MySQL
-
-
-
-8081
-
-
-
-8081
-
-
-
-Connects to MySQL
-
-Configuration Details
-
-
-
-
-
-MongoDB API:
-
-
-
-
-
-Configured via SPRING_DATA_MONGODB_URI in docker-compose.yml.
-
-
-
-Connects to mongodb:27017/meu_banco_mongo.
-
-
-
-MySQL API:
-
-
-
-
-
-Configured via environment variables in docker-compose.yml (overrides application.properties).
-
-
-
-Connects to mysql:3306/meu_banco_mysql with root/root credentials.
-
-
-
-Hibernate DDL is set to update for automatic schema updates.
-
-
-
-Docker Compose:
-
-
-
-
-
-Uses version 3.8.
-
-
-
-Defines a bridge network (app-network) for service communication.
-
-
-
-Persists data using volumes (mongodb_data, mysql_data).
-
-Troubleshooting
-
-
-
-
-
-API fails to connect to database:
-
-
-
-
-
-Ensure the mongodb and mysql services are running before the APIs start. The depends_on directive helps, but you may add health checks for robustness:
-
+```yaml
 mysql:
   healthcheck:
     test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
     interval: 10s
     timeout: 5s
     retries: 5
+
 mongodb:
   healthcheck:
     test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
     interval: 10s
     timeout: 5s
     retries: 5
+```
+
+- Check logs:
+
+```bash
+docker logs api-mysql
+docker logs api-mongodb
+```
+
+
+### Port Conflicts:
+
+- If ports `27017`, `3306`, `8080`, or `8081` are in use, modify the host ports in `docker-compose.yml`, for example:
+
+```yaml
+3307:3306
+```
 
 
 
-Check logs: docker logs api-mysql or docker logs api-mongodb.
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch:  
+   `git checkout -b feature/your-feature`
+3. Commit your changes:  
+   `git commit -m 'Add your feature'`
+4. Push to the branch:  
+   `git push origin feature/your-feature`
+5. Open a Pull Request.
 
 
+### 👨‍💻 Authors
+Nome | GitHub
+Vitu Felipe | @vitufelipe
+Maria Eduarda |
 
-Port conflicts:
-
-
-
-
-
-If ports 27017, 3306, 8080, or 8081 are in use, modify the host ports in docker-compose.yml (e.g., change 3306:3306 to 3307:3306).
-
-Contributing
-
-
-
-
-
-Fork the repository.
-
-
-
-Create a new branch (git checkout -b feature/your-feature).
-
-
-
-Commit your changes (git commit -m 'Add your feature').
-
-
-
-Push to the branch (git push origin feature/your-feature).
-
-
-
-Open a Pull Request.
-
-License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-Contact
+## Contact
 
-For questions or feedback, open an issue on GitHub or contact your-email@example.com.
+For questions or feedback, open an issue on GitHub or contact victor_felipe28@hotmail.com.
