@@ -3,6 +3,7 @@ package com.vitufelipe.api_mysql.controller;
 import com.vitufelipe.api_mysql.model.Usuario;
 import com.vitufelipe.api_mysql.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,5 +17,10 @@ public class UsuarioController {
     @PostMapping
     public Usuario salvar(@RequestBody Usuario usuario) {
         return repository.save(usuario);
+    }
+
+    @RequestMapping(method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> options() {
+        return ResponseEntity.ok().build();
     }
 }
