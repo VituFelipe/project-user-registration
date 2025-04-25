@@ -1,32 +1,37 @@
-API Dual Database Project
+# API Dual Database Project
 
 This project is a dual-database application consisting of two Spring Boot APIs: one connected to a MongoDB database and another to a MySQL database. The services are orchestrated using Docker Compose, ensuring easy setup and deployment. The MongoDB API handles data stored in a MongoDB instance, while the MySQL API manages data in a MySQL database.
 
-Project Structure
+---
+
+## Project Structure
 
 
 
 
 
-api-mongodb: Spring Boot application connected to MongoDB.
+- `api-mongodb`: Spring Boot application connected to MongoDB.
 
 
 
-api-mysql: Spring Boot application connected to MySQL.
+- `api-mysql`: Spring Boot application connected to MySQL.
 
 
 
-docker-compose.yml: Defines and orchestrates the MongoDB, MySQL, and API services.
+- `docker-compose.yml`: Defines and orchestrates the MongoDB, MySQL, and API services.
 
 
 
-Volumes: Persistent storage for MongoDB (mongodb_data) and MySQL (mysql_data).
+- **Volumes**: Persistent storage for MongoDB (`mongodb_data`) and MySQL (`mysql_data`).
 
 
 
-Network: A bridge network (app-network) for communication between services.
+- **Network**: A bridge network (`app-network`) for communication between services.
 
-Prerequisites
+
+---
+
+## Prerequisites
 
 Before running the project, ensure you have the following installed:
 
@@ -34,26 +39,30 @@ Before running the project, ensure you have the following installed:
 
 
 
-Docker
+- [Docker]
 
 
 
-Docker Compose
+- [Docker Compose]
 
 
 
-Java 17 (for local development, if not using Docker)
+- [Java 21 (for local development, if not using Docker)]
 
 
 
-Maven (for building the Spring Boot applications, if not using Docker)
+- [Maven (for building the Spring Boot applications, if not using Docker)]
 
-Getting Started
+---
 
-1. Clone the Repository
+# Getting Started
 
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
+```
 
 2. Directory Structure
 
