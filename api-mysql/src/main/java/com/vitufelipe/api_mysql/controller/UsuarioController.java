@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = {"http://localhost:8000", "http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"}, methods = {RequestMethod.POST, RequestMethod.OPTIONS})
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository repository;
 
     @PostMapping
-    public Usuario salvar(@RequestBody Usuario usuario){
+    public Usuario salvar(@RequestBody Usuario usuario) {
         return repository.save(usuario);
     }
 }
