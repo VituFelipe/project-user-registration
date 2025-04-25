@@ -243,10 +243,10 @@ docker logs api-mongodb
 5. Open a Pull Request.
 
 
-### 👨‍💻 Authors
-Nome | GitHub
-Vitu Felipe | @vitufelipe
-Maria Eduarda |
+## 👨‍💻 Authors
+
+- **Vitu Felipe** | [@vitufelipe](https://github.com/vitufelipe)
+- **Maria Eduarda** | 
 
 ## License
 
